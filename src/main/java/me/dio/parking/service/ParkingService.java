@@ -3,6 +3,7 @@ package me.dio.parking.service;
 import me.dio.parking.model.Parking;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,5 +34,13 @@ public class ParkingService {
 
     public Parking findById(String id) {
         return parkingMap.get(id);
+    }
+
+    public Parking create(Parking parkingCreate) {
+        var id = getUUID();
+        parkingCreate.setId(id);
+        parkingCreate.setEntryTime(LocalDateTime.now());
+        parkingMap.put(id, parkingCreate);
+        return parkingCreate;
     }
 }

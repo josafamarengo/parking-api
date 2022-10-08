@@ -1,14 +1,13 @@
 package me.dio.parking.controller;
 
+import me.dio.parking.controller.dto.ParkingCreateDTO;
 import me.dio.parking.controller.dto.ParkingDTO;
 import me.dio.parking.controller.mapper.ParkingMapper;
 import me.dio.parking.model.Parking;
 import me.dio.parking.service.ParkingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +35,13 @@ public class ParkingController {
         Parking parking = parkingService.findById(id);
         ParkingDTO result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<ParkingDTO> create(@RequestBody ParkingCreateDTO parkingDTO) {
+        var parkingCreate = parkingMapper.toParkingCreate(parkingDTO);
+        var parking = parkingService.create(parkingCreate);
+        var result = parkingMapper.toParkingDTO(parking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

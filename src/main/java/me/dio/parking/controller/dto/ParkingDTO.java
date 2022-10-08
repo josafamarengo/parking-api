@@ -1,6 +1,9 @@
 package me.dio.parking.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ParkingDTO {
@@ -10,9 +13,10 @@ public class ParkingDTO {
     private String state;
     private String model;
     private String color;
-    private String entryTime;
-    private String exitTime;
-    private String parkingTime;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime entryTime;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime exitTime;
     private Double parkingCost;
 
     public String getId() {
@@ -55,28 +59,20 @@ public class ParkingDTO {
         this.color = color;
     }
 
-    public String getEntryTime() {
+    public LocalDateTime getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(String entryTime) {
+    public void setEntryTime(LocalDateTime entryTime) {
         this.entryTime = entryTime;
     }
 
-    public String getExitTime() {
+    public LocalDateTime getExitTime() {
         return exitTime;
     }
 
-    public void setExitTime(String exitTime) {
+    public void setExitTime(LocalDateTime exitTime) {
         this.exitTime = exitTime;
-    }
-
-    public String getParkingTime() {
-        return parkingTime;
-    }
-
-    public void setParkingTime(String parkingTime) {
-        this.parkingTime = parkingTime;
     }
 
     public Double getParkingCost() {
