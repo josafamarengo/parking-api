@@ -15,9 +15,12 @@ public class ParkingService {
     private static Map<String, Parking> parkingMap = new HashMap<>();
 
     static {
-        var id = getUUID();
-        Parking parking1 = new Parking(id, "ABC-1234", "SP", "Fiat Uno", "Black");
-        parkingMap.put(id, parking1);
+        var id1 = getUUID();
+        var id2 = getUUID();
+        Parking parking1 = new Parking(id1, "ABC-1234", "SP", "Fiat Uno", "Black");
+        Parking parking2 = new Parking(id2, "DEF-5678", "SP", "VW Gol", "Red");
+        parkingMap.put(id1, parking1);
+        parkingMap.put(id2, parking2);
     }
 
     public List<Parking> findAll() {
@@ -28,4 +31,7 @@ public class ParkingService {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    public Parking findById(String id) {
+        return parkingMap.get(id);
+    }
 }
