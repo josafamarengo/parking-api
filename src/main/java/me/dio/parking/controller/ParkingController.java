@@ -1,26 +1,31 @@
 package me.dio.parking.controller;
 
+import me.dio.parking.controller.dto.ParkingDTO;
+import me.dio.parking.controller.mapper.ParkingMapper;
 import me.dio.parking.model.Parking;
+import me.dio.parking.service.ParkingService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/parking")
 public class ParkingController {
 
-    @GetMapping("/parking")
-    public List<Parking> findAll() {
+    private final ParkingService parkingService;
+    private final ParkingMapper parkingMapper;
 
-        var parking1 = new Parking();
-        parking1.setLicense("ABC-1234");
-        parking1.setState("SP");
-        parking1.setModel("Fiat Uno");
-        parking1.setColor("Black");
-        parking1.setEntryTime(LocalDateTime.now());
+    public ParkingController(ParkingService parkingService, ParkingMapper parkingMapper) {
+        this.parkingService = parkingService;
+        this.parkingMapper = parkingMapper;
+    }
 
-        return Arrays.asList(parking1, parking1);
+    @GetMapping
+    public List<ParkingDTO> findAll() {
+        List<Parking> parkingList = parkingService.findAll();
+        List<ParkingDTO> result = parkingMapper.toParkingDTOList(parkingList);
+        return result;
     }
 }

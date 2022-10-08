@@ -1,29 +1,19 @@
-package me.dio.parking.model;
+package me.dio.parking.controller.dto;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class Parking {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ParkingDTO {
 
     private String id;
     private String license;
     private String state;
     private String model;
     private String color;
-    private LocalDateTime entryTime;
-    private LocalDateTime exitTime;
+    private String entryTime;
+    private String exitTime;
     private String parkingTime;
     private Double parkingCost;
-
-    public Parking(String id, String license, String state, String model, String color) {
-        this.id = id;
-        this.license = license;
-        this.state = state;
-        this.model = model;
-        this.color = color;
-    }
-
-    public Parking() {
-    }
 
     public String getId() {
         return id;
@@ -65,19 +55,19 @@ public class Parking {
         this.color = color;
     }
 
-    public LocalDateTime getEntryTime() {
+    public String getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(LocalDateTime entryTime) {
+    public void setEntryTime(String entryTime) {
         this.entryTime = entryTime;
     }
 
-    public LocalDateTime getExitTime() {
+    public String getExitTime() {
         return exitTime;
     }
 
-    public void setExitTime(LocalDateTime exitTime) {
+    public void setExitTime(String exitTime) {
         this.exitTime = exitTime;
     }
 
