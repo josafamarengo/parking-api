@@ -11,7 +11,7 @@ public class Parking {
     private String color;
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
-    private String parkingTime;
+    private int parkingTimeInMinutes;
     private Double parkingCost;
 
     public Parking(String id, String license, String state, String model, String color) {
@@ -81,19 +81,29 @@ public class Parking {
         this.exitTime = exitTime;
     }
 
-    public String getParkingTime() {
-        return parkingTime;
+    public int getParkingTimeInMinutes() {
+        return parkingTimeInMinutes;
     }
 
-    public void setParkingTime(String parkingTime) {
-        this.parkingTime = parkingTime;
+    public void setParkingTimeInMinutes() {
+        var hours = exitTime.getHour() - entryTime.getHour();
+        var minutes = exitTime.getMinute() - entryTime.getMinute();
+        this.parkingTimeInMinutes = (hours * 60) + minutes;
     }
 
     public Double getParkingCost() {
         return parkingCost;
     }
 
-    public void setParkingCost(Double parkingCost) {
-        this.parkingCost = parkingCost;
+    public void setParkingCost() {
+        /* 1 hour = 5 reais
+         * <= 15 minutes = 0 reais
+         * > 15 minutes = 5 reais
+         * */
+        if (parkingTimeInMinutes <= 15) {
+            this.parkingCost = 0.00;
+        } else {
+            this.parkingCost = Math.ceil(parkingTimeInMinutes / 60.0) * 5;
+        }
     }
 }
